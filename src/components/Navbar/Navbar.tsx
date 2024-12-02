@@ -1,7 +1,7 @@
-import { AppBar, Box, Container, IconButton, Paper, Toolbar, Typography } from "@mui/material"
+import { AppBar, Box, Container, IconButton, Toolbar, Typography } from "@mui/material"
 import { iconsNav } from "../../helpers/icons";
 import { NavIcons } from "../NavIcons";
-import { Home, HomeMax } from "@mui/icons-material";
+import { Home } from "@mui/icons-material";
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
