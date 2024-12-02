@@ -24,8 +24,7 @@ module.exports = {
     },
   },
   rules: {
-    // Ejemplo: Personaliza tus reglas aquí
-    'react/react-in-jsx-scope': 'off', // No es necesario importar React en proyectos modernos
+    'react/react-in-jsx-scope': 'off',
     '@typescript-eslint/no-unused-vars': ['warn'],
   },
 };
