@@ -104,3 +104,10 @@ export interface IconNavItem {
   textInfo: string
   button: boolean
 }  
+
+export type Categories = Categorie[]
+
+export interface Categorie {
+  id: string
+  name: string
+}
