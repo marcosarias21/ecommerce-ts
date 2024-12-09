@@ -1,55 +1,29 @@
-import { AppBar, Box, Container, IconButton, Toolbar, Typography } from "@mui/material"
+import { AppBar, Box, Button, Container, IconButton, Menu, Toolbar, Typography } from "@mui/material"
 import { iconsNav } from "../../helpers/icons";
 import { NavIcons } from "../NavIcons";
 import { Home } from "@mui/icons-material";
-import { styled, alpha } from '@mui/material/styles';
-import InputBase from '@mui/material/InputBase';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import SearchIcon from '@mui/icons-material/Search';
-
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(1),
-    width: 'auto',
-  },
-}));
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  width: '100%',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    [theme.breakpoints.up('sm')]: {
-      width: '12ch',
-      '&:focus': {
-        width: '20ch',
-      },
-    },
-  },
-}));
+import { useState } from "react";
+import { MenuNav } from "../MenuNav";
+import { Search, SearchIconWrapper, StyledInputBase } from "../../helpers/styled";
+import { useCategoriesStore } from "../store/categoriesStore";
 
 const Navbar = () => {
+  const categories = useCategoriesStore((state) => state.categories)
+  console.log(categories)
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  console.log(open)
+
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <AppBar position="static" color="info">
         <Container maxWidth="lg">
@@ -79,7 +53,19 @@ const Navbar = () => {
                 </IconButton>
               </Box>
               <Box>
-                Categorias
+              <div>
+                <Button
+                  variant="contained"                
+                  onClick={handleClick}
+                >
+                  Open Menu
+                </Button>
+                <Menu id="dropdown-menu" anchorEl={anchorEl} open={open} onClose={handleClose}>
+                  {
+                    categories?.map(categorie => <MenuNav handleClose={handleClose} {...categorie} key={categorie.id}/>)
+                  }                  
+                </Menu>
+              </div>
               </Box>
               <Box marginLeft={'auto'} display={'flex'} alignItems={"center"}>
                 <Box>
