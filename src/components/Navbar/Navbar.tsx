@@ -9,12 +9,15 @@ import { MenuNav } from "../MenuNav";
 import { Search, SearchIconWrapper, StyledInputBase } from "../../helpers/styled";
 import { useCategoriesStore } from "../store/categoriesStore";
 
-const Navbar = () => {
+type Prop = {
+  isShow: boolean
+}
+
+const Navbar: React.FC<Prop> = ({ isShow }) => {
   const categories = useCategoriesStore((state) => state.categories)
-  console.log(categories)
+  console.log(isShow)
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  console.log(open)
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -25,8 +28,8 @@ const Navbar = () => {
   };
 
   return (
-    <AppBar position="static" color="info">
-        <Container maxWidth="lg">
+    <AppBar position="sticky" color="inherit">
+        <Container maxWidth="lg" sx={{ display: isShow ? 'none' : 'block' }}>
           <Toolbar sx={{ justifyContent: 'space-between' }} >
             <Box sx={{ display: 'flex', alignItems: 'center' }} gap={1}>
               <Typography variant="h6" fontWeight={"bold"} component="div" sx={{ flexGrow: 1 }}>
@@ -41,21 +44,22 @@ const Navbar = () => {
           </Toolbar>
         </Container>
           <Toolbar variant="dense" sx={{ backgroundColor: "black" }}>
-            <Container maxWidth="lg" sx={{ display: 'flex', gap: 5, alignItems: 'center' }}>
+            <Container maxWidth="lg" sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
               <Box>
                 <IconButton>
                   <Home />
                 </IconButton>
               </Box>
               <Box>
-                <IconButton color="inherit">
+                <IconButton sx={{ color: '#e0e0e0' }}>
                   <Home />
                 </IconButton>
               </Box>
               <Box>
               <div>
                 <Button
-                  variant="contained"                
+                  variant="contained"
+                  color="inherit"                
                   onClick={handleClick}
                 >
                   Open Menu
@@ -76,7 +80,7 @@ const Navbar = () => {
                     <StyledInputBase
                       placeholder="Search…"
                       inputProps={{ 'aria-label': 'search' }}
-                      sx={{ height: '30px' }}
+                      sx={{ height: '30px', color: '#fff' }}
                     />
                   </Search>
                 </Box>
