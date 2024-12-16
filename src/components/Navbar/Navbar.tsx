@@ -7,7 +7,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import { useState } from "react";
 import { MenuNav } from "../MenuNav";
 import { Search, SearchIconWrapper, StyledInputBase } from "../../helpers/styled";
-import { useCategoriesStore } from "../store/categoriesStore";
+import { useCategoriesStore } from "../../store/categoriesStore";
+import { Link } from "react-router-dom";
 
 type Prop = {
   isShow: boolean
@@ -15,7 +16,6 @@ type Prop = {
 
 const Navbar: React.FC<Prop> = ({ isShow }) => {
   const categories = useCategoriesStore((state) => state.categories)
-  console.log(isShow)
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -28,7 +28,7 @@ const Navbar: React.FC<Prop> = ({ isShow }) => {
   };
 
   return (
-    <AppBar position="sticky" color="inherit">
+    <AppBar position="fixed" color="inherit">
         <Container maxWidth="lg" sx={{ display: isShow ? 'none' : 'block' }}>
           <Toolbar sx={{ justifyContent: 'space-between' }} >
             <Box sx={{ display: 'flex', alignItems: 'center' }} gap={1}>
@@ -51,9 +51,11 @@ const Navbar: React.FC<Prop> = ({ isShow }) => {
                 </IconButton>
               </Box>
               <Box>
-                <IconButton sx={{ color: '#e0e0e0' }}>
-                  <Home />
-                </IconButton>
+                <Link to={'/'}>
+                  <IconButton sx={{ color: '#e0e0e0' }}>
+                    <Home />
+                  </IconButton>
+                </Link>
               </Box>
               <Box>
               <div>
@@ -62,7 +64,7 @@ const Navbar: React.FC<Prop> = ({ isShow }) => {
                   color="inherit"                
                   onClick={handleClick}
                 >
-                  Open Menu
+                  Categorias
                 </Button>
                 <Menu id="dropdown-menu" anchorEl={anchorEl} open={open} onClose={handleClose}>
                   {

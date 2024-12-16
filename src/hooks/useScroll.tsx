@@ -2,17 +2,19 @@ import { useEffect, useState } from "react"
 
 const useScroll = () => {
   const [isShow, setIsShow] = useState<boolean>(false)
-  console.log(isShow)
+
   useEffect(() => {
     const disableNav = () => {
-      if (window.scrollY >= 90) {
+      if (window.scrollY > 700) {
         setIsShow(true)
       } else {
         setIsShow(false)
       }
     }  
-    window.addEventListener('scroll', disableNav)
-  }, [isShow])
+    return () => {
+      window.addEventListener('scroll', disableNav)
+    }
+  }, [])
 
   return { isShow }
 }

@@ -1,7 +1,7 @@
 import { List, MenuItem } from '@mui/material'
 import React from 'react'
 import { Categorie } from '../../types/types.d';
-import { useCategoriesStore } from '../store/categoriesStore';
+import { useCategoriesStore } from '../../store/categoriesStore';
 
 type MenuNavProps = {
   handleClose: () => void;
