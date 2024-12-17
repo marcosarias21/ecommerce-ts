@@ -9,7 +9,6 @@ type MenuNavProps = {
   name: Categorie['name']
 };
 
-
 const MenuNav: React.FC<MenuNavProps> = ({ handleClose, id, name }) => {
   const setCategorieId = useCategoriesStore((state) => state.setCategorieId)
   
