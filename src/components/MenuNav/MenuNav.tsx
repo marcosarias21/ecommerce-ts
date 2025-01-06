@@ -2,6 +2,7 @@ import { List, MenuItem } from '@mui/material'
 import React from 'react'
 import { Categorie } from '../../types/types.d';
 import { useCategoriesStore } from '../../store/categoriesStore';
+import { Link } from 'react-router-dom';
 
 type MenuNavProps = {
   handleClose: () => void;
@@ -19,7 +20,9 @@ const MenuNav: React.FC<MenuNavProps> = ({ handleClose, id, name }) => {
   
   return (
     <List sx={{ display: 'ruby' }}>
-      <MenuItem onClick={handleClick}>{name}</MenuItem>  
+      <Link to={`/category/${id}`}>
+        <MenuItem onClick={handleClick}>{name}</MenuItem>  
+      </Link>
     </List>
   )
 }

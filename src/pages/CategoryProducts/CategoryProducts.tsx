@@ -22,7 +22,7 @@ const CategoryProducts = () => {
         <Grid2 container spacing={2}>
           {
             data?.results?.map(product => 
-            <Grid2 key={product.id} size={2}>
+            <Grid2 key={product.id} size={3}>
               <CardProducts {...product} />
             </Grid2>  
           )
