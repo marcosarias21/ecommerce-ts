@@ -8,14 +8,16 @@ import { useState } from "react";
 import { MenuNav } from "../MenuNav";
 import { Search, SearchIconWrapper, StyledInputBase } from "../../helpers/styled";
 import { useCategoriesStore } from "../../store/categoriesStore";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 type Prop = {
   isShow: boolean
 }
 
 const Navbar: React.FC<Prop> = ({ isShow }) => {
-  const categories = useCategoriesStore((state) => state.categories)
+  const location = useLocation();
+  const isProductLocation = location.pathname.includes('product')
+  const categories = useCategoriesStore((state) => state.categories);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -28,7 +30,7 @@ const Navbar: React.FC<Prop> = ({ isShow }) => {
   };
 
   return (
-    <AppBar position="fixed" color="inherit">
+    <AppBar position={isProductLocation ? 'static' : 'fixed'} color="inherit">
         <Container maxWidth="lg" sx={{ display: isShow ? 'none' : 'block' }}>
           <Toolbar sx={{ justifyContent: 'space-between' }} >
             <Box sx={{ display: 'flex', alignItems: 'center' }} gap={1}>
@@ -87,7 +89,7 @@ const Navbar: React.FC<Prop> = ({ isShow }) => {
                   </Search>
                 </Box>
                 <Box pl={1}>
-                  <IconButton color="inherit">
+                  <IconButton sx={{ color: '#fff' }} >
                     <ShoppingCartIcon fontSize="small" />
                   </IconButton>
                 </Box>

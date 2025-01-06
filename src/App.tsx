@@ -4,6 +4,7 @@ import './App.css'
 import { CategoryProducts } from './pages/CategoryProducts'
 import { Navbar } from './components/Navbar'
 import useScroll from './hooks/useScroll'
+import { DetailProduct } from './pages/DetailProduct'
 
 const App = () => {
   const { isShow } = useScroll()
@@ -14,6 +15,7 @@ const App = () => {
       <Routes>
         <Route path='' element={<Home />} />
         <Route path='/category/:id' element={<CategoryProducts />} />
+        <Route path='/product/:id' element={<DetailProduct />} />
       </Routes>
       <footer>@Marcos Arias 2024</footer>
     </>
