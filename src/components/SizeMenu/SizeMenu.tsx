@@ -12,7 +12,7 @@ const SizeMenu: React.FC<Prop> = ({ sizes }) => {
           id="demo-simple-select"
           label="Talles"
         >
-          {sizes?.map(s => <MenuItem value={s?.value_name}>{s?.value_name}</MenuItem>)}
+          {sizes?.map(s => <MenuItem value={s?.value_name}>{s?.value_name}</MenuItem>).sort()}
         </Select>
     </FormControl>
   )

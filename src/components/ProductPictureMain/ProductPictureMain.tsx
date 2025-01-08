@@ -1,14 +1,15 @@
 import { Box } from '@mui/material'
 import React from 'react'
 import { Picture, Variation } from '../../types/productDetail.d'
+import { useProductStore } from '../../store/productStore'
 
 interface Props {
   variations: Variation[]
-  indexImg: number
   pictures: Picture[]
 }
 
-const AsidePicture: React.FC<Props> = ({variations, indexImg, pictures}) => {
+const ProductPictureMain: React.FC<Props> = ({variations, pictures}) => {
+  const { indexImg } = useProductStore()
   return (
     <Box>{             
         variations.length > 0 && variations[indexImg]?.picture_ids?.length > 1 ? 
@@ -18,4 +19,4 @@ const AsidePicture: React.FC<Props> = ({variations, indexImg, pictures}) => {
   )
 }
 
-export default AsidePicture
+export default ProductPictureMain
