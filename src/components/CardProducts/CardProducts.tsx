@@ -10,7 +10,6 @@ type Prop = ProductsDiscount | Result
 const CardProducts: React.FC<Prop> = ({ id, title, thumbnail, price, original_price}) => {
   const discount = original_price && ((original_price - price) / original_price)* 100
   const [isShowFav, setIsShowFav] = useState<boolean>(false)
-  console.log(isShowFav)
   return (
     <Card sx={{ height: '100%', maxWidth: 250, position: 'relative' }} onMouseEnter={() => setIsShowFav(true)} onMouseLeave={() => setIsShowFav(false)}>
       {isShowFav ? 

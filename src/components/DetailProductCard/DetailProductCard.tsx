@@ -1,72 +1,33 @@
-import { Box, Button, Container, Divider, FormControl, Grid2, InputLabel, List, MenuItem, Paper, Select, Typography } from '@mui/material'
-import { Attribute, Product } from '../../types/productDetail.d'
-import { useEffect, useState } from 'react'
+import { Box, Button, Container, Divider, Grid2, List, Paper, Typography } from '@mui/material'
+import {Product } from '../../types/productDetail.d'
+import { useState } from 'react'
 import { arrayAtr } from '../../helpers/arrayAttributes'
+import useUniqueColours from '../../hooks/useUniqueColours'
+import useSize from '../../hooks/useSize'
+import { SizeMenu } from '../SizeMenu'
+import { ColoursAvailable } from '../ColoursAvailable'
+import { CardPictureMain } from '../CardPictureMain'
+import { AsidePicture } from '../AsidePicture'
 
 type Prop = Product
 
 const DetailProductCard: React.FC<Prop> = ({ title, pictures, original_price, condition, shipping, base_price, attributes, initial_quantity, variations }) => {
   const [indexImg, setIndexImg] = useState<number>(0)
-  const [isSelected, setIsSelected] = useState( )
-  const [talle, setTalle] = useState<Attribute[]>()
-  const [color, setColor] = useState<string>(variations[0]?.attribute_combinations[0].value_name)
   const isFreeShipping = shipping?.free_shipping
+  const sizes = useSize(variations)
+  const coloursAvailable = useUniqueColours(variations)
+  console.log(coloursAvailable)
   const filteredAtr = attributes?.filter(atribute => arrayAtr.includes(atribute?.id))
- 
-  const getTalle = () => {
-    const colorVariacion = variations.filter(variation => variation?.attribute_combinations.some(vari => vari?.id === 'Gris-Coral'))
-    const tipoVariacion = variations?.filter(variation => variation?.attribute_combinations.some(vari => vari?.value_name === color))
-    const filtrarTalle = tipoVariacion.flatMap(type => type.attribute_combinations.filter(size => size.id === "SIZE"))
-    setTalle(filtrarTalle)  
-  }
-
-  const getColoresUnicos = () => {
-    const coloresUnicos: string[] = []
-    const atributosVariaciones = variations.filter(variation => variation.attribute_combinations.some(vari => vari.name === "Color"))
-    console.log(atributosVariaciones)
-    atributosVariaciones?.forEach(color => {
-      color.attribute_combinations.forEach(col => {
-        if(!coloresUnicos.some(unico => unico.name === col.value_name) && col.value_name.length > 6) {
-            coloresUnicos.push({ name: col.value_name, pic: color.picture_ids })
-          }
-        } 
-      )
-    })
-    console.log(coloresUnicos)
-  }
-  useEffect(() => {
-    getTalle()
-    getColoresUnicos()
-  }, [variations])
-
   return (
     (
       <Paper elevation={3} sx={{ maxWidth: "1200px", margin: "auto", padding: 2, mt: 4, borderRadius: 3 }}>
         <Grid2 container>
           <Grid2 size={1}>
-            {
-              variations.length > 0 ? 
-              <Box sx={{ display: 'inline-block' }}>
-                {
-                  variations[0].picture_ids?.map((pic, i) => 
-                  <Box key={i} sx={{ height: 70, width: 70, border: '1px solid gray', borderRadius: 1, mb: 1, cursor: 'pointer' }} onMouseEnter={() => setIndexImg(i)}>
-                    <img style={{ width: '100%', height: '100%', objectFit: 'contain' }} src={`https://http2.mlstatic.com/D_${pic}-O.jpg`} />
-                  </Box>)
-                }
-              </Box> : 
-              <Box sx={{ display: 'inline-block' }}>
-                {
-                  pictures?.map((pic, i) => 
-                  <Box key={i} sx={{ height: 70, width: 70, border: '1px solid gray', borderRadius: 1, mb: 1, cursor: 'pointer' }} onMouseEnter={() => setIndexImg(i)}>
-                    <img style={{ width: '100%', height: '100%', objectFit: 'contain' }} src={pic.url} />
-                  </Box>)
-                }
-              </Box>
-            }
+            <CardPictureMain variations={variations} pictures={pictures} setIndexImg={setIndexImg} />
           </Grid2>
           <Grid2 display={'flex'} size={4} gap={2}>
             <Box>
-              <img style={{ height: '100%', width: '100%', objectFit: 'contain' }} src={pictures[indexImg]?.url} />
+              <AsidePicture variations={variations} indexImg={indexImg} pictures={pictures} />
             </Box>
           </Grid2>
           <Grid2 size={4}>
@@ -85,8 +46,8 @@ const DetailProductCard: React.FC<Prop> = ({ title, pictures, original_price, co
                 </Box>
                 <Box>
                   {filteredAtr?.map(attribute => 
-                  <List>
-                    <Typography fontWeight={'bold'} component={'span'}>-{attribute.name}:</Typography> {attribute.value_name}
+                  <List key={attribute.id }>
+                    <Typography fontWeight={'bold'} component={'span'}>{attribute.name}:</Typography> {attribute.value_name}
                   </List>)}
                 </Box>
               </Box>
@@ -99,20 +60,9 @@ const DetailProductCard: React.FC<Prop> = ({ title, pictures, original_price, co
               <Typography>Cantidad disponible: {initial_quantity}</Typography>
             </Box>
             <Box>
-              <Box>
-                <Typography>Color:</Typography>  
-              </Box>
+              <ColoursAvailable />
               <Box mt={5}>
-                <FormControl sx={{ width: '100%' }} >
-                  <InputLabel id="demo-simple-select-label">Talle</InputLabel>
-                  <Select 
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    label="Talles"
-                  >
-                    {talle?.map(s => <MenuItem value={s?.value_name}>{s?.value_name}</MenuItem>)}
-                  </Select>
-                </FormControl>
+                {sizes && sizes?.length > 0 && <SizeMenu sizes={sizes} /> }
               </Box>
             </Box>
           </Grid2>
