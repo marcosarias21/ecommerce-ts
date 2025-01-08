@@ -1,33 +1,33 @@
 import { Box, Button, Container, Divider, Grid2, List, Paper, Typography } from '@mui/material'
 import {Product } from '../../types/productDetail.d'
-import { useState } from 'react'
 import { arrayAtr } from '../../helpers/arrayAttributes'
 import useUniqueColours from '../../hooks/useUniqueColours'
 import useSize from '../../hooks/useSize'
 import { SizeMenu } from '../SizeMenu'
 import { ColoursAvailable } from '../ColoursAvailable'
-import { CardPictureMain } from '../CardPictureMain'
-import { AsidePicture } from '../AsidePicture'
+import { GalleryPicCards } from '../GalleryPicCards'
+import { ProductPictureMain } from '../ProductPictureMain'
+import { useProductStore } from '../../store/productStore'
 
 type Prop = Product
 
 const DetailProductCard: React.FC<Prop> = ({ title, pictures, original_price, condition, shipping, base_price, attributes, initial_quantity, variations }) => {
-  const [indexImg, setIndexImg] = useState<number>(0)
   const isFreeShipping = shipping?.free_shipping
+  const { colour } = useProductStore() // seguir refacorizando esto dsp
   const sizes = useSize(variations)
   const coloursAvailable = useUniqueColours(variations)
-  console.log(coloursAvailable)
   const filteredAtr = attributes?.filter(atribute => arrayAtr.includes(atribute?.id))
+  
   return (
     (
       <Paper elevation={3} sx={{ maxWidth: "1200px", margin: "auto", padding: 2, mt: 4, borderRadius: 3 }}>
         <Grid2 container>
           <Grid2 size={1}>
-            <CardPictureMain variations={variations} pictures={pictures} setIndexImg={setIndexImg} />
+            <GalleryPicCards variations={variations} pictures={pictures} coloursAvailable={coloursAvailable || []} />
           </Grid2>
           <Grid2 display={'flex'} size={4} gap={2}>
             <Box>
-              <AsidePicture variations={variations} indexImg={indexImg} pictures={pictures} />
+              <ProductPictureMain variations={variations} pictures={pictures} />
             </Box>
           </Grid2>
           <Grid2 size={4}>
@@ -50,6 +50,9 @@ const DetailProductCard: React.FC<Prop> = ({ title, pictures, original_price, co
                     <Typography fontWeight={'bold'} component={'span'}>{attribute.name}:</Typography> {attribute.value_name}
                   </List>)}
                 </Box>
+                <Box mt={5} width={'60%'}>
+                  {sizes && sizes?.length > 0 && <SizeMenu sizes={sizes} /> }
+                </Box>
               </Box>
             </Container>
           </Grid2>
@@ -60,10 +63,8 @@ const DetailProductCard: React.FC<Prop> = ({ title, pictures, original_price, co
               <Typography>Cantidad disponible: {initial_quantity}</Typography>
             </Box>
             <Box>
-              <ColoursAvailable />
-              <Box mt={5}>
-                {sizes && sizes?.length > 0 && <SizeMenu sizes={sizes} /> }
-              </Box>
+              <Typography variant='body1' fontWeight={'bold'}>Colores Disponibles: <Typography component={'span'} variant='body2'>{colour}</Typography></Typography>
+              <ColoursAvailable colours={coloursAvailable ||[]}/>          
             </Box>
           </Grid2>
           <Grid2 display={'flex'} justifyContent={'end'} size={12}>

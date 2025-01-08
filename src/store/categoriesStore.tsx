@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { Categorie } from "../../types/types.d";
+import { Categorie } from "../types/types.d";
 
 type State = {
   categories: Categorie[] | null
