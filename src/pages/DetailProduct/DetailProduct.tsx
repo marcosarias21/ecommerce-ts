@@ -7,8 +7,6 @@ import { Product } from '../../types/productDetail.d'
 const DetailProduct = () => {
   const { id } = useParams()
   const { data } = useFetch<Product>(`https://api.mercadolibre.com/items/${id}`)
-  console.log(data)
-
   
   return (
     <Container>
