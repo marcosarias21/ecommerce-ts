@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Variation } from "../types/productDetail.d"
 
-const useSize = (variations: Variation[] | []) => {
+const useSize = (variations: Variation[] | undefined) => {
   const [talle, setTalle] = useState<Variation['attribute_combinations']>()
   
   const getSize = () => {

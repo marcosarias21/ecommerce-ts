@@ -20,7 +20,7 @@ const MenuNav: React.FC<MenuNavProps> = ({ handleClose, id, name }) => {
   
   return (
     <List sx={{ display: 'ruby' }}>
-      <Link to={`/category/${id}`}>
+      <Link to={`/category/${id}`} style={{ color: '#2d2d2d' }}>
         <MenuItem onClick={handleClick}>{name}</MenuItem>  
       </Link>
     </List>
