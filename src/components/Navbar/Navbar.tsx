@@ -1,4 +1,4 @@
-import { AppBar, Box, Button, Container, IconButton, Menu, Toolbar, Typography } from "@mui/material"
+import { AppBar, Badge, Box, Button, Container, IconButton, Menu, Toolbar, Typography } from "@mui/material"
 import { iconsNav } from "../../helpers/icons";
 import { NavIcons } from "../NavIcons";
 import { Home } from "@mui/icons-material";
@@ -10,28 +10,25 @@ import { Search, SearchIconWrapper, StyledInputBase } from "../../helpers/styled
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useCategoriesStore } from "../../store/categoriesStore";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useCartStore } from "../../store/cartStore";
+import { DrawerCart } from "../DrawerCart";
+import useMenu from "../../hooks/useMenu";
 
 type Prop = {
   isShow: boolean
 }
 
 const Navbar: React.FC<Prop> = ({ isShow }) => {
+  const [openDrawer, setOpenDrawer] = useState<boolean>(false)
   const location = useLocation();
+  const { cart } = useCartStore()
   const navigate = useNavigate()
   const [inputValue, setInputValue] = useState<string>("")
   const isProductLocation = location.pathname.includes('product')
   const homeLocation = location.pathname
   const categories = useCategoriesStore((state) => state.categories);
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  const { anchorEl, handleClick, handleClose, open } = useMenu()
+  
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -109,9 +106,12 @@ const Navbar: React.FC<Prop> = ({ isShow }) => {
               </Search>
             </Box>
             <Box pl={1}>
-              <IconButton sx={{ color: '#fff' }} >
-                <ShoppingCartIcon fontSize="small" />
+              <IconButton sx={{ color: '#fff' }} onClick={() => setOpenDrawer(!openDrawer)}>
+                <Badge badgeContent={cart.length} color="primary">
+                  <ShoppingCartIcon fontSize="small" />
+                </Badge>
               </IconButton>
+              <DrawerCart openDrawer={openDrawer} setOpenDrawer={setOpenDrawer}/>
             </Box>
           </Box>
         </Container>

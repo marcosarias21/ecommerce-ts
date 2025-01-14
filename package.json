@@ -18,6 +18,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.0.1",
+    "snackbar": "^1.1.0",
     "styled": "^1.0.0",
     "swiper": "^11.1.15",
     "zustand": "^5.0.1"

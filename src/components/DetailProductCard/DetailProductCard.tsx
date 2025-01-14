@@ -5,11 +5,29 @@ import { ColoursAvailable } from '../ColoursAvailable'
 import { GalleryPicCards } from '../GalleryPicCards'
 import { ProductPictureMain } from '../ProductPictureMain'
 import { colorVariationsObj } from '../../types/coloursAvaiable'
+import { useCartStore } from '../../store/cartStore'
+import { useState } from 'react'
+import { AlertSnackbar } from '../AlertSnackbar'
 
 type Prop = Product & { sizes: AttributeCombination[] | undefined, coloursAvailable: colorVariationsObj[] | [], filteredAtr: Attribute[] | undefined } 
 
-const DetailProductCard: React.FC<Prop> = ({ title, pictures, original_price, condition, shipping, base_price, initial_quantity, variations, sizes, coloursAvailable, filteredAtr }) => {
+const DetailProductCard: React.FC<Prop> = ({ id, title, pictures, original_price, condition, shipping, base_price, initial_quantity, variations, sizes, coloursAvailable, filteredAtr }) => {
+  const [open, setOpen] = useState<boolean>(false);
+  const { addProductCart, cart } = useCartStore()
   const isFreeShipping = shipping?.free_shipping
+  const priceCart = original_price ? original_price : base_price
+
+  const addProduct = () => {
+    if (cart.find(cart => cart.name === title)) {
+        alert('Este producto ya esta en el carrito!')
+    } else {
+      addProductCart({ id: id, name: title, image: pictures[0].url, price: priceCart})    
+      setOpen(true);
+      return setInterval(() => {
+            setOpen(false)
+      }, 2000);
+    }
+  }
 
   return (
     (
@@ -58,7 +76,8 @@ const DetailProductCard: React.FC<Prop> = ({ title, pictures, original_price, co
             }
           </Box>
           <Box mt={10}>
-            <Button sx={{ paddingX: 5, paddingY: 1.4 }} variant='contained' color='warning'>Agregar al carrito</Button>
+            <Button sx={{ paddingX: 5, paddingY: 1.4 }} onClick={() => addProduct()} variant='contained' color='inherit'>Agregar al carrito</Button>
+            <AlertSnackbar open={open} />
           </Box>
         </Grid2>
       </Grid2>
