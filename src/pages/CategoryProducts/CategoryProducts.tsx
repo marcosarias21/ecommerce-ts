@@ -31,8 +31,7 @@ const CategoryProducts = () => {
           <Box display={'flex'} justifyContent={'center'} mt={5}>
             <Pagination sx={{ position: 'absolute', bottom: 0 }} onChange={handleChange} count={100} page={page} color="secondary" />
           </Box>          
-        </Box>
-       
+        </Box>     
       }
     </Container>
   )
