@@ -18,7 +18,8 @@ const CategoryProducts = () => {
     <Container sx={{ marginTop: 20 }}>
       {
         loading ? <Spinner /> :
-        <Grid2 container spacing={2}>
+        <Box>
+          <Grid2 container spacing={2}>
           {
             data?.results?.map(product => 
             <Grid2 key={product.id} size={3}>
@@ -26,11 +27,13 @@ const CategoryProducts = () => {
             </Grid2>  
           )
           }
-        </Grid2>
+          </Grid2>
+          <Box display={'flex'} justifyContent={'center'} mt={5}>
+            <Pagination sx={{ position: 'absolute', bottom: 0 }} onChange={handleChange} count={100} page={page} color="secondary" />
+          </Box>          
+        </Box>
+       
       }
-      <Box display={'flex'} justifyContent={'center'} mt={5}>
-        <Pagination sx={{ position: 'absolute', bottom: 0 }} onChange={handleChange} count={100} page={page} color="secondary" />
-      </Box>
     </Container>
   )
 }
