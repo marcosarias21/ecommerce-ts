@@ -6,7 +6,7 @@ import { CardProducts } from '../../components/CardProducts'
 
 const SearchProducts = () => {
   const { product } = useParams()
-  const { data } = useFetch<ProductFinds>(`https://api.mercadolibre.com/sites/MLA/search?q=${product}&limit=10`)
+  const { data } = useFetch<ProductFinds>(`https://api.mercadolibre.com/sites/MLA/search?q=${product}&limit=20`)
   
   return (
     <Container sx={{ marginTop: 15 }}>

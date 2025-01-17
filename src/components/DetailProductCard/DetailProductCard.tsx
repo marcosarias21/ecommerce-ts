@@ -9,7 +9,7 @@ import { useCartStore } from '../../store/cartStore'
 import { useState } from 'react'
 import { AlertSnackbar } from '../AlertSnackbar'
 
-type Prop = Product & { sizes: AttributeCombination[] | undefined, coloursAvailable: colorVariationsObj[] | [], filteredAtr: Attribute[] | undefined } 
+type Prop = Product & { sizes: AttributeCombination[] | undefined, coloursAvailable: colorVariationsObj[] | undefined, filteredAtr: Attribute[] | undefined } 
 
 const DetailProductCard: React.FC<Prop> = ({ id, title, pictures, original_price, condition, shipping, base_price, initial_quantity, variations, sizes, coloursAvailable, filteredAtr }) => {
   const [open, setOpen] = useState<boolean>(false);
@@ -32,15 +32,15 @@ const DetailProductCard: React.FC<Prop> = ({ id, title, pictures, original_price
   return (
     (
       <Grid2 container>
-        <Grid2 size={1} display={'flex'} ml={1} my={1} alignItems={'center'}>
+        <Grid2 size={{ xs: 0, sm: 4, md: 4, lg: 1 }} display={{ xs : 'none', sm: 'none', md: 'flex' }} ml={1} my={1} alignItems={'center'}>
           <GalleryPicCards variations={variations} pictures={pictures} coloursAvailable={coloursAvailable || []} />
         </Grid2>
-        <Grid2 display={'flex'} size={4} gap={2}>
+        <Grid2 display={'flex'} size={{ xs: 12, sm: 4, md: 4, lg: 3 }} gap={2}>
           <Box display={'flex'}>
             <ProductPictureMain variations={variations} pictures={pictures} />
           </Box>
         </Grid2>
-        <Grid2 size={4}>
+        <Grid2 size={{ xs: 12, sm: 6, md: 6, lg: 4 }}>
           <Container>
             <Box>
               <Box display={'flex'} gap={3} height={'100%'}>
@@ -66,17 +66,17 @@ const DetailProductCard: React.FC<Prop> = ({ id, title, pictures, original_price
           </Container>
         </Grid2>
         <Divider orientation='vertical' flexItem />
-        <Grid2 size={2.5} mt={2} ml={3} justifyContent={'center'}>
+        <Grid2 size={{ xs: 12, sm: 6, md: 5, lg: 3 }} mt={2} ml={2} justifyContent={'center'}>
           <Box mb={2}>
             <Typography fontWeight={'bold'}>Stock Disponible<Typography>Cantidad disponible: {initial_quantity}</Typography></Typography>              
           </Box>
           <Box>
             {
-              coloursAvailable?.length > 0 && <ColoursAvailable colours={coloursAvailable ||[]}/>          
+              coloursAvailable != undefined && <ColoursAvailable colours={coloursAvailable ||[]}/>          
             }
           </Box>
           <Box mt={10}>
-            <Button sx={{ paddingX: 5, paddingY: 1.4 }} onClick={() => addProduct()} variant='contained' color='inherit'>Agregar al carrito</Button>
+            <Button sx={{ paddingX: 5, paddingY: 1.4, mb: 4 }} onClick={() => addProduct()} variant='contained' color='primary'>Agregar al carrito</Button>
             <AlertSnackbar open={open} />
           </Box>
         </Grid2>

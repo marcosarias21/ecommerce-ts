@@ -11,7 +11,7 @@ import './carousel.css'
 
 const Carousel = () => {
   return (
-    <Box sx={{ marginTop: '112px' }}>
+    <Box>
       <Swiper navigation={true} modules={[Navigation]}className="mySwiper">
         <SwiperSlide><img src={imgCar} alt={imgCar} /></SwiperSlide>
         <SwiperSlide><img src={imgCar2} alt={imgCar2} /></SwiperSlide>

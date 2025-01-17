@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom'
 import useFetch from '../../hooks/useFetch'
-import { Box, Container, Grid2, Pagination } from '@mui/material'
+import { Box, Container, Grid2, Pagination, Typography } from '@mui/material'
 import { CategorieObject } from '../../types/categorydata.d'
 import { CardProducts } from '../../components/CardProducts'
 import { Spinner } from '../../components/Spinner'
@@ -10,19 +10,24 @@ const CategoryProducts = () => {
   const [page, setPage] = useState<number>(1)
   const { id } = useParams()
   const { data, loading } = useFetch<CategorieObject>(`https://api.mercadolibre.com/sites/MLA/search?category=${id}&limit=30&offset=${page}`)
+  const category = data?.filters[0].values[0].name
+  console.log()
   const handleChange = (e: React.ChangeEvent<unknown>, value: number) => {
     setPage(value)
   }
 
   return (
-    <Container sx={{ marginTop: 20 }}>
+    <Container>
       {
         loading ? <Spinner /> :
         <Box>
+          <Box mb={1}>
+            <Typography>{category}</Typography>
+          </Box>
           <Grid2 container spacing={2}>
           {
             data?.results?.map(product => 
-            <Grid2 key={product.id} size={3}>
+            <Grid2 key={product.id} size={{ xs: 6, sm: 4, md: 3 }}>
               <CardProducts {...product} />
             </Grid2>  
           )

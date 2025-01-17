@@ -10,6 +10,7 @@ import useFetch from './hooks/useFetch'
 import { Categories } from './types/types.d'
 import { useEffect } from 'react'
 import { SearchProducts } from './pages/SearchProducts'
+import { ScrollToTop } from './components/ScrollToTop'
 
 const App = () => {
   const { isShow } = useScroll()
@@ -24,13 +25,14 @@ const App = () => {
   return (
     <>
       <Navbar isShow={isShow} />
+      <ScrollToTop />
       <Routes>
         <Route path='' element={<Home />} />
         <Route path='/category/:id' element={<CategoryProducts />} />
         <Route path='/product/:id' element={<DetailProduct />} />
         <Route path='/search/:product' element={<SearchProducts />} />
       </Routes>
-      <footer style={{ position: 'absolute', bottom: 0 }}>@Marcos Arias 2024</footer>
+      <footer style={{ position: 'absolute', bottom: 0 }}>@Marcos Arias 2025</footer>
     </>
   )
 }

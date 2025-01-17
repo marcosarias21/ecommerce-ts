@@ -37,7 +37,7 @@ const Navbar: React.FC<Prop> = ({ isShow }) => {
   } 
 
   return (
-    <AppBar position={isProductLocation ? 'static' : 'fixed'} color="inherit" sx={{ backgroundColor: 'transparent', backdropFilter: 'blur(10px)' }}>
+    <AppBar position={isProductLocation ? 'static' : 'sticky'} color="inherit" sx={{ backgroundColor: 'transparent', backdropFilter: 'blur(10px)' }}>
       <Container maxWidth="lg" sx={{ display: isShow ? 'none' : 'block' }}>
         <Toolbar sx={{ justifyContent: 'space-between' }} >
           <Box sx={{ display: 'flex', alignItems: 'center' }} gap={1}>
@@ -45,7 +45,8 @@ const Navbar: React.FC<Prop> = ({ isShow }) => {
               MercadoTypescript
             </Typography>
           </Box>
-          <Box display={"flex"} gap={2}>
+          <Button onClick={handleClick} variant="contained" color="inherit" sx={{ display: { md: 'none' } }}>Categories</Button>
+          <Box sx={{ display: { xs: 'none', sm: 'none', md: 'flex'} }} display={"flex"} gap={2} >
             {
               iconsNav.map((icon, i) =>  <NavIcons {...icon} key={i} /> )
             }              
@@ -56,12 +57,12 @@ const Navbar: React.FC<Prop> = ({ isShow }) => {
         <Box>
           {
             homeLocation != '/' && 
-            <IconButton size="large" sx={{ color: "#fff" }} onClick={() => navigate(-1)}>
+            <IconButton size="small" sx={{ color: "#fff" }} onClick={() => navigate(-1)}>
               <ArrowBackIcon  />
             </IconButton>
           }
         </Box>
-        <Container maxWidth="lg" sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+        <Container maxWidth="lg" sx={{ display: 'flex', alignItems: 'center' }}>
           <Box>
             <IconButton>
               <Home />
@@ -80,6 +81,7 @@ const Navbar: React.FC<Prop> = ({ isShow }) => {
               variant="contained"
               color="inherit"                
               onClick={handleClick}
+              sx={{ display: 'none' }}
             >
               Categorias
             </Button>

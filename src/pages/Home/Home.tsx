@@ -31,7 +31,7 @@ const Home = () => {
           </Box>
           <Box mt={10}>
             <Typography mb={2} component={'h5'} variant='h4' textAlign={'center'} fontWeight={'bold'}>Mas categorias</Typography>
-            <Grid2 container spacing={2}>
+            <Grid2 container spacing={2} justifyContent={'center'}>
                 {categoryIds.map(id => <CategorieCard idCategory={id} key={id} />)}
             </Grid2>
           </Box>

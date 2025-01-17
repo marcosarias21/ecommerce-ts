@@ -16,7 +16,7 @@ const DetailProduct = () => {
   
   return (
     <Container>
-      <Paper elevation={3} sx={{ maxWidth: "1200px", margin: "auto", mt: 4, borderRadius: 3 }}>
+      <Paper elevation={3} sx={{ maxWidth: "1200px", margin: "auto", mt: 4, borderRadius: 3, height: '100%'  }}>
         {data && <DetailProductCard key={data.id} {...data} sizes={sizes} coloursAvailable={coloursAvailable} filteredAtr={filteredAtr} />}
       </Paper>
     </Container>
