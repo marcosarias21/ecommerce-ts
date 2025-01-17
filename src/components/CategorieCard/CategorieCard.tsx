@@ -11,7 +11,7 @@ const CategorieCard: React.FC<Prop> = ({idCategory}) => {
   const dataCat = useFetch<Categorie>(`https://api.mercadolibre.com/categories/${idCategory}`)
 
   return (
-    <Grid2 size={4} sx={{ background: '#fff', paddingX: 2, borderRadius: 5, transition: '0.2s ease', ":hover": {
+    <Grid2 size={{ xs: 9, sm: 6, md: 4 }} sx={{ background: '#fff', paddingX: 2, borderRadius: 5, transition: '0.2s ease', ":hover": {
       opacity: 0.9, transition: '0.1s ease', transform: 'scale(1.1)'
     }  }}>
       <Link to={`/category/${idCategory}`}>
