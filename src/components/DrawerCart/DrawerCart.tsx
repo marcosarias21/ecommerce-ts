@@ -17,7 +17,7 @@ const DrawerCart: React.FC<Prop> = ({ openDrawer, setOpenDrawer }) => {
         cart.length > 0 ? 
         <Box>
           {cart.map(product => 
-            <Box mb={2}>
+            <Box mb={2} sx={{ width: {xs: '350px', md: 'auto'} }}>
               <Card sx={{ display: 'flex', border: '1px solid rgba(247, 236, 236, 0.62)', height: '100%' }}>
                 <CardMedia
                   component="img"

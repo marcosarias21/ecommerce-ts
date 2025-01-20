@@ -24,7 +24,6 @@ const ColoursAvailable: React.FC<Prop> = ({ colours }) => {
             <img style={{ height: '100%', width: '100%', borderRadius: '5px', objectFit: 'contain'  }} src={`https://http2.mlstatic.com/D_${color.picture_ids[0]}-O.jpg`} />
           </Box>
         </Grid2>)}
-
       </Box>
     </Grid2>
   )
