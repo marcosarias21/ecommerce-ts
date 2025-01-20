@@ -14,8 +14,8 @@ const Home = () => {
 
   return (
     <>
-      <Carousel />
-      <Box sx={{ backgroundColor: '#f8f9fa', paddingTop: 4}}>
+      <Carousel/>
+      <Box component={'section'} sx={{ backgroundColor: '#f8f9fa', paddingTop: 4}}>
         <Container maxWidth={'lg'} >
           <Typography component={'h4'} variant='h4' fontWeight={'bold'} textAlign={'center'}>Destacados</Typography>
           <Box marginTop={5}>

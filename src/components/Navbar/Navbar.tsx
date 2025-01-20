@@ -14,11 +14,7 @@ import { useCartStore } from "../../store/cartStore";
 import { DrawerCart } from "../DrawerCart";
 import useMenu from "../../hooks/useMenu";
 
-type Prop = {
-  isShow: boolean
-}
-
-const Navbar: React.FC<Prop> = ({ isShow }) => {
+const Navbar = () => {
   const [openDrawer, setOpenDrawer] = useState<boolean>(false)
   const location = useLocation();
   const { cart } = useCartStore()
@@ -38,7 +34,7 @@ const Navbar: React.FC<Prop> = ({ isShow }) => {
 
   return (
     <AppBar position={isProductLocation ? 'static' : 'sticky'} color="inherit" sx={{ backgroundColor: 'transparent', backdropFilter: 'blur(10px)' }}>
-      <Container maxWidth="lg" sx={{ display: isShow ? 'none' : 'block' }}>
+      <Container maxWidth="lg">
         <Toolbar sx={{ justifyContent: 'space-between' }} >
           <Box sx={{ display: 'flex', alignItems: 'center' }} gap={1}>
             <Typography variant="h6" fontWeight={"bold"} component="div" sx={{ flexGrow: 1 }}>
@@ -78,10 +74,10 @@ const Navbar: React.FC<Prop> = ({ isShow }) => {
           <Box>
           <div>
             <Button
-              variant="contained"
-              color="inherit"                
+              variant="text"
+              color="primary"                
               onClick={handleClick}
-              sx={{ display: 'none' }}
+              sx={{ display: {xs: 'none', md: 'flex'} }}
             >
               Categorias
             </Button>

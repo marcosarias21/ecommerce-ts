@@ -11,7 +11,7 @@ const CategoryProducts = () => {
   const { id } = useParams()
   const { data, loading } = useFetch<CategorieObject>(`https://api.mercadolibre.com/sites/MLA/search?category=${id}&limit=30&offset=${page}`)
   const category = data?.filters[0].values[0].name
-  console.log()
+
   const handleChange = (e: React.ChangeEvent<unknown>, value: number) => {
     setPage(value)
   }
@@ -34,7 +34,7 @@ const CategoryProducts = () => {
           }
           </Grid2>
           <Box display={'flex'} justifyContent={'center'} mt={5}>
-            <Pagination sx={{ position: 'absolute', bottom: 0 }} onChange={handleChange} count={100} page={page} color="secondary" />
+            <Pagination onChange={handleChange} count={100} page={page} color="primary" />
           </Box>          
         </Box>     
       }

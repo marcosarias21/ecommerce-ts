@@ -3,7 +3,6 @@ import { Home } from './pages/Home'
 import './App.css'
 import { CategoryProducts } from './pages/CategoryProducts'
 import { Navbar } from './components/Navbar'
-import useScroll from './hooks/useScroll'
 import { DetailProduct } from './pages/DetailProduct'
 import { useCategoriesStore } from './store/categoriesStore'
 import useFetch from './hooks/useFetch'
@@ -11,9 +10,9 @@ import { Categories } from './types/types.d'
 import { useEffect } from 'react'
 import { SearchProducts } from './pages/SearchProducts'
 import { ScrollToTop } from './components/ScrollToTop'
+import { NavFooter } from './components/NavFooter'
 
 const App = () => {
-  const { isShow } = useScroll()
   const categoriesSetter = useCategoriesStore((state) => state.setCategories)
   const categories = useFetch<Categories>('https://api.mercadolibre.com/sites/MLA/categories')
 
@@ -24,7 +23,7 @@ const App = () => {
   
   return (
     <>
-      <Navbar isShow={isShow} />
+      <Navbar />
       <ScrollToTop />
       <Routes>
         <Route path='' element={<Home />} />
@@ -32,7 +31,7 @@ const App = () => {
         <Route path='/product/:id' element={<DetailProduct />} />
         <Route path='/search/:product' element={<SearchProducts />} />
       </Routes>
-      <footer style={{ position: 'absolute', bottom: 0 }}>@Marcos Arias 2025</footer>
+      <NavFooter />
     </>
   )
 }
