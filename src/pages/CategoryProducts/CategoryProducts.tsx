@@ -10,6 +10,7 @@ const CategoryProducts = () => {
   const [page, setPage] = useState<number>(1)
   const { id } = useParams()
   const { data, loading } = useFetch<CategorieObject>(`https://api.mercadolibre.com/sites/MLA/search?category=${id}&limit=30&offset=${page}`)
+  console.log(data)
   const category = data?.filters[0].values[0].name
 
   const handleChange = (e: React.ChangeEvent<unknown>, value: number) => {

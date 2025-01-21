@@ -1,4 +1,4 @@
-import { Box, Button, Container, Divider, Grid2, List, Typography } from '@mui/material'
+import { Box, Button, Chip, Container, Divider, Grid2, List, Typography } from '@mui/material'
 import {Attribute, AttributeCombination, Product } from '../../types/productDetail.d'
 import { SizeMenu } from '../SizeMenu'
 import { ColoursAvailable } from '../ColoursAvailable'
@@ -40,43 +40,50 @@ const DetailProductCard: React.FC<Prop> = ({ id, title, pictures, original_price
             <ProductPictureMain variations={variations} pictures={pictures} />
           </Box>
         </Grid2>
-        <Grid2 size={{ xs: 12, sm: 6, md: 6, lg: 4 }}>
+        <Grid2 size={{ xs: 12, sm: 4, md: 6, lg: 4 }}>
           <Container>
             <Box>
               <Box display={'flex'} gap={3} height={'100%'}>
                 <Typography component={'span'} variant='body1'>{condition === 'new' ? `Nuevo | +Tanto vendidos` : 'Usado'}</Typography>                  
               </Box>
               <Divider />
-              <Box my={2}>
-                <Typography variant='h6' fontWeight={'bold'}>{title}</Typography>
-                {isFreeShipping ? <Typography color='success' variant='body1'>Envio Gratis</Typography> : <Typography color='error' variant='body1'>Envio Costo</Typography>}
-                {original_price ?  <Typography variant="caption" sx={{ textDecoration: 'line-through' }}>${original_price?.toLocaleString("de-DE")}</Typography> : ""}   
-                <Typography variant='h6'>${base_price.toLocaleString("de-DE")}</Typography>
+              <Box mt={2}>
+                <Typography my={1} variant='h6' fontWeight={'bold'}>{title}</Typography>
+                <Box display={'flex'} my={1} gap={2}>
+                  <Typography variant='h6'>${base_price.toLocaleString("de-DE")}</Typography>
+                  {isFreeShipping ? <Chip color='success' variant='outlined' label='Envio gratis' /> : <Chip color='error' variant='outlined' label='Envio con costo' />}
+                  {original_price ?  <Typography variant="caption" sx={{ textDecoration: 'line-through' }}>${original_price?.toLocaleString("de-DE")}</Typography> : ""}   
+                </Box>
               </Box>
               <Box>
                 {filteredAtr?.map(attribute => 
                 <List key={attribute.id }>
-                  <Typography fontWeight={'bold'} component={'span'}>{attribute.name}:</Typography> {attribute.value_name}
+                  {attribute.value_name != null &&
+                  <Typography fontWeight={'bold'} component={'span'}>{attribute.name}:
+                    <Typography variant='body1' component={'span'}>{attribute.value_name}</Typography>
+                  </Typography>
+                  }         
                 </List>)}
-              </Box>
-              <Box mt={5} width={'60%'}>
-                {sizes && sizes?.length > 0 && <SizeMenu sizes={sizes} /> }
               </Box>
             </Box>
           </Container>
         </Grid2>
         <Divider orientation='vertical' flexItem />
-        <Grid2 size={{ xs: 12, sm: 6, md: 5, lg: 3 }} mt={2} ml={2} justifyContent={'center'}>
+        <Grid2 size={{ xs: 12, sm: 3, md: 5, lg: 3 }} ml={2} justifyContent={'center'}>
           <Box mb={2}>
             <Typography fontWeight={'bold'}>Stock Disponible<Typography>Cantidad disponible: {initial_quantity}</Typography></Typography>              
           </Box>
+          
           <Box>
             {
               coloursAvailable != undefined && <ColoursAvailable colours={coloursAvailable ||[]}/>          
             }
           </Box>
-          <Box mt={10}>
-            <Button sx={{ paddingX: 5, paddingY: 1.4, mb: 4 }} onClick={() => addProduct()} variant='contained' color='primary'>Agregar al carrito</Button>
+          <Box width={'100%'}>
+            {sizes && sizes?.length > 0 && <SizeMenu sizes={sizes} /> }
+          </Box>
+          <Box>
+            <Button sx={{ mb: 4, backgroundImage: 'linear-gradient(-136.047deg,rgb(99, 127, 204),rgb(147, 199, 202))' }} onClick={() => addProduct()} variant='contained'>Agregar al carrito</Button>
             <AlertSnackbar open={open} />
           </Box>
         </Grid2>
