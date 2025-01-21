@@ -5,15 +5,15 @@ import { Link } from 'react-router-dom'
 const NavFooter = () => {
   const { categories } = useCategoriesStore()
   return (
-    <Container component={'section'} maxWidth={'lg'}>
-      <Box sx={{ backgroundColor: '#FFF', borderRadius: 2 }} my={4}>
+    <Box component={'section'}  sx={{ backgroundColor: '#f8f9fa', pt: 10 }}>
+      <Container maxWidth={'lg'}>
         <Typography fontWeight={'bold'}>Categorias mas buscadas:</Typography>
-        <Box>
+        <Box mb={5}>
           <Typography variant='body2'>{categories?.map((category, index) => <Link style={{ textDecoration: 'none', color: 'inherit' }} to={`/category/${category.id}`}>{category?.name}{index < categories.length - 1 &&  ' - '}</Link>)}</Typography>
         </Box>
-      </Box>      
-      <footer>@Marcos Arias 2025</footer>
-    </Container>
+      </Container>      
+      <Typography textAlign={'center'}>@Marcos Arias 2025</Typography>
+    </Box>
   )
 }
 

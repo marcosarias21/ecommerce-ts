@@ -29,6 +29,7 @@ const Navbar = () => {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       navigate(`/search/${inputValue}`)
+      setInputValue("")
     }
   } 
 
@@ -41,7 +42,7 @@ const Navbar = () => {
               MercadoTypescript
             </Typography>
           </Box>
-          <Button onClick={handleClick} variant="contained" color="inherit" sx={{ display: { md: 'none' } }}>Categories</Button>
+          <Button onClick={handleClick} variant="text" color="inherit" sx={{ display: { md: 'none' } }}>Categories</Button>
           <Box sx={{ display: { xs: 'none', sm: 'none', md: 'flex'} }} display={"flex"} gap={2} >
             {
               iconsNav.map((icon, i) =>  <NavIcons {...icon} key={i} /> )
@@ -59,11 +60,6 @@ const Navbar = () => {
           }
         </Box>
         <Container maxWidth="lg" sx={{ display: 'flex', alignItems: 'center' }}>
-          <Box>
-            <IconButton>
-              <Home />
-            </IconButton>
-          </Box>
           <Box>
             <Link to={'/'}>
               <IconButton sx={{ color: '#e0e0e0' }}>
@@ -97,6 +93,7 @@ const Navbar = () => {
                 <StyledInputBase
                   placeholder="Search…"
                   onChange={e => setInputValue(e.target.value)}
+                  value={inputValue}
                   onKeyDown={handleKeyDown}
                   inputProps={{ 'aria-label': 'search' }}
                   sx={{ height: '30px', color: '#fff' }}

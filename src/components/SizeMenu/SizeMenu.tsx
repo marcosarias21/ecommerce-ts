@@ -5,7 +5,7 @@ type Prop ={ sizes: AttributeCombination[] | null}
 
 const SizeMenu: React.FC<Prop> = ({ sizes }) => {
   return (
-    <FormControl sx={{ width: '100%' }} >
+    <FormControl sx={{ width: '100%', my: 2 }} >
       <InputLabel id="demo-simple-select-label">Talle</InputLabel>
         <Select 
           labelId="demo-simple-select-label"

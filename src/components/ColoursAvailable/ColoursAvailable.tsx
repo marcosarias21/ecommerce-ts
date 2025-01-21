@@ -15,9 +15,9 @@ const ColoursAvailable: React.FC<Prop> = ({ colours }) => {
   return (
     <Grid2 container display={'block'} gap={2}>
       <Box>
-        <Typography variant='body1' fontWeight={'bold'}>Colores Disponibles: <Typography component={'span'} variant='body2'>{colour}</Typography></Typography>
+        {filteredData.length > 0 && <Typography variant='body1' fontWeight={'bold'}>Colores Disponibles: <Typography component={'span'} variant='body2'>{colour}</Typography></Typography>}
       </Box>
-      <Box display={'flex'} gap={1} mt={2}>
+      <Box display={'flex'} gap={1} my={2}>
         {filteredData?.map(color => 
         <Grid2 display={'flex'} size={3} onMouseEnter={() => getColourText(color.nameColor)}>
           <Box sx={{ display: 'flex', border: '1px solid lightgray',borderRadius: '5px', height: '100%'  }}>

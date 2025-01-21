@@ -13,9 +13,9 @@ const Home = () => {
     const categoryIds = ['MLA1051', 'MLA1648', 'MLA1574']
 
   return (
-    <>
+    <Box sx={{ backgroundColor: '#f8f9fa' }}>
       <Carousel/>
-      <Box component={'section'} sx={{ backgroundColor: '#f8f9fa', paddingTop: 4}}>
+      <Box component={'section'} sx={{ paddingTop: 4}}>
         <Container maxWidth={'lg'} >
           <Typography component={'h4'} variant='h4' fontWeight={'bold'} textAlign={'center'}>Destacados</Typography>
           <Box marginTop={5}>
@@ -37,7 +37,7 @@ const Home = () => {
           </Box>
         </Container>
       </Box>   
-    </>
+    </Box>
   )
 }
 

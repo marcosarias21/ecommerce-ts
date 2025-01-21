@@ -14,12 +14,12 @@ import { NavFooter } from './components/NavFooter'
 
 const App = () => {
   const categoriesSetter = useCategoriesStore((state) => state.setCategories)
-  const categories = useFetch<Categories>('https://api.mercadolibre.com/sites/MLA/categories')
+  const { data } = useFetch<Categories>('https://api.mercadolibre.com/sites/MLA/categories')
 
 
   useEffect(() => {
-    if (categories.data) categoriesSetter(categories.data)
-  }, [categories])
+    if (data) categoriesSetter(data)
+  }, [data])
   
   return (
     <>

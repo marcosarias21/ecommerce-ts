@@ -9,7 +9,7 @@ const SearchProducts = () => {
   const { data } = useFetch<ProductFinds>(`https://api.mercadolibre.com/sites/MLA/search?q=${product}&limit=20`)
   
   return (
-    <Container sx={{ marginTop: 15 }}>
+    <Container sx={{ marginTop: 2, marginBottom: 2 }}>
       <Box mb={5}>
         {data?.filters[0]?.values.map(value => (
             <Typography>{value.path_from_root.map(val => val.name).join(' > ')}</Typography>  

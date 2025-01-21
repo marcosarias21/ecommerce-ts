@@ -21,12 +21,14 @@ const CardProducts: React.FC<Prop> = ({ id, title, thumbnail, price, original_pr
       :  null}
       <Link to={`/product/${id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
         <CardActionArea sx={{ height: '100%' }}>
-          <CardMedia
-            component="img"
-            image={thumbnail}
-            alt="green iguana"
-            sx={{ height: 'auto !important' }}
-          />
+          <Box>
+            <CardMedia
+              component="img"
+              image={thumbnail}
+              alt="green iguana"
+              sx={{ height: '100%' }}
+            />
+          </Box>
           <CardContent>
             <Typography gutterBottom variant="body2" fontWeight={'bold'}>
               {title.substring(0, 34).concat('...')}

@@ -1,6 +1,7 @@
-import { Box, Button, Card, CardActionArea, CardContent, CardMedia, Divider, Drawer, Paper, Typography } from '@mui/material'
+import { Box, Button, Card, CardActionArea, CardContent, CardMedia, Divider, Drawer, IconButton, Paper, Typography } from '@mui/material'
 import { useCartStore } from '../../store/cartStore'
 import { Link } from 'react-router-dom'
+import { Close } from '@mui/icons-material'
 
 type Prop = { openDrawer: boolean, setOpenDrawer: (boolean: boolean) => void }
 
@@ -8,8 +9,17 @@ const DrawerCart: React.FC<Prop> = ({ openDrawer, setOpenDrawer }) => {
   const { cart, deleteProductCart } = useCartStore()
   const priceTotal = cart.length > 0 ? cart?.map(product => product.price)?.reduce((acc, item) => acc += item) : null
 
+  const handleClose = () => {
+    setOpenDrawer(false)
+  }
+
   return (
     <Drawer open={openDrawer} onClose={() => setOpenDrawer(false)} anchor='right'>
+      <Box textAlign={'end'} sx={{ display: { md: 'none' }, mr: 0 }}>
+        <IconButton onClick={handleClose}>
+          <Close />
+        </IconButton>
+      </Box>
       <Box>
         <Typography mt={5} textAlign={'center'} variant='h6'>Productos en el carrito:</Typography>
       </Box>
@@ -17,7 +27,7 @@ const DrawerCart: React.FC<Prop> = ({ openDrawer, setOpenDrawer }) => {
         cart.length > 0 ? 
         <Box>
           {cart.map(product => 
-            <Box mb={2} sx={{ width: {xs: '350px', md: 'auto'} }}>
+            <Box key={product.id} mb={2} sx={{ width: {xs: '100%', md: 'auto'} }}>
               <Card sx={{ display: 'flex', border: '1px solid rgba(247, 236, 236, 0.62)', height: '100%' }}>
                 <CardMedia
                   component="img"
@@ -33,7 +43,7 @@ const DrawerCart: React.FC<Prop> = ({ openDrawer, setOpenDrawer }) => {
                   </Link>
                 </CardActionArea>
                 <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}>
-                  <Button variant='contained' color='success'>Comprar</Button>
+                  <Button variant='contained' color='primary'>Pagar</Button>
                   <Button color='error' variant='contained' onClick={() => deleteProductCart(product.id)}>Eliminar</Button>
                 </Box>
               </Card>              
@@ -43,12 +53,13 @@ const DrawerCart: React.FC<Prop> = ({ openDrawer, setOpenDrawer }) => {
           <Typography textAlign={'center'} variant='h6'>Total:${priceTotal?.toLocaleString("de-DE")}</Typography>
         </Box>
         :
-        <Paper sx={{ display: 'flex', alignItems: 'center', marginX: 2, paddingX:2, borderRadius: 2, marginTop: 5, height:100, backgroundColor: '#F5F5F5' }}>
-          <Typography variant='h6'>No hay productos en el carrito</Typography>
-        </Paper>
+        <Box>
+          <Paper sx={{ display: 'flex', alignItems: 'center', marginX: 2, paddingX:2, borderRadius: 2, marginTop: 5, height:100, backgroundColor: '#F5F5F5' }}>
+            <Typography variant='body1'>No hay productos en el carrito</Typography>
+          </Paper>
+        </Box>
       }
-      
-      
+      <Button onClick={handleClose} sx={{ marginTop: 'auto', display: { md: 'none' } }}>Cerrar</Button>
     </Drawer>
   )
 }
