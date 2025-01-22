@@ -27,7 +27,7 @@ const DetailProduct = () => {
       <Box mb={20} mt={10}>
         <Typography mb={2} variant='h6'>Productos relacionados:</Typography>
         <Box>
-          <SwiperChildren>
+          <SwiperChildren height="380px">
             {relatedProduct.data?.results.map(product => (
               <SwiperSlide key={product.id}>
                 <CardProducts {...product}/>

@@ -19,10 +19,10 @@ const Home = () => {
         <Container maxWidth={'lg'} >
           <Typography component={'h4'} variant='h4' fontWeight={'bold'} textAlign={'center'}>Destacados</Typography>
           <Box marginTop={5}>
-            <SwiperChildren>
+            <SwiperChildren height="450px">
               {
                 discountProducts?.data?.results.map(product => 
-                <SwiperSlide  key={product.id} style={{ height: '100%' }}>
+                <SwiperSlide  key={product.id} style={{ height: '380px' }}>
                   <CardProducts {...product} />
                 </SwiperSlide>
               )
