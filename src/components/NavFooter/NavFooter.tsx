@@ -9,7 +9,7 @@ const NavFooter = () => {
       <Container maxWidth={'lg'}>
         <Typography fontWeight={'bold'}>Categorias mas buscadas:</Typography>
         <Box mb={5}>
-          <Typography variant='body2'>{categories?.map((category, index) => <Link style={{ textDecoration: 'none', color: 'inherit' }} to={`/category/${category.id}`}>{category?.name}{index < categories.length - 1 &&  ' - '}</Link>)}</Typography>
+          <Typography variant='body2'>{categories?.map((category, index) => <Link key={category.id} style={{ textDecoration: 'none', color: 'inherit' }} to={`/category/${category.id}`}>{category?.name}{index < categories.length - 1 &&  ' - '}</Link>)}</Typography>
         </Box>
       </Container>      
       <Typography textAlign={'center'}>@Marcos Arias 2025</Typography>

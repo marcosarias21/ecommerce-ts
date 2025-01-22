@@ -13,7 +13,6 @@ interface Props {
 const GalleryPicCards: React.FC<Props> = ({ variations, pictures, coloursAvailable }) => {
   const { updateIndexImg } = useProductStore()
   const [colourAvailable, setColourAvailable] = useState<colorVariationsObj[] | Variation[]>([])
-  console.log(pictures.length)
 
   useEffect(() => {
     if (variations.length > 1 && colourAvailable.length > 1) {
@@ -21,7 +20,7 @@ const GalleryPicCards: React.FC<Props> = ({ variations, pictures, coloursAvailab
     } else {
       setColourAvailable(variations)
     }
-  }, [colourAvailable])
+  }, [])
 
   return (
     <Box sx={{ height: '100%' }}>

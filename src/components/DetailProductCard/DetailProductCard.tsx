@@ -6,29 +6,36 @@ import { GalleryPicCards } from '../GalleryPicCards'
 import { ProductPictureMain } from '../ProductPictureMain'
 import { colorVariationsObj } from '../../types/coloursAvaiable'
 import { useCartStore } from '../../store/cartStore'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AlertSnackbar } from '../AlertSnackbar'
 
 type Prop = Product & { sizes: AttributeCombination[] | undefined, coloursAvailable: colorVariationsObj[] | undefined, filteredAtr: Attribute[] | undefined } 
 
 const DetailProductCard: React.FC<Prop> = ({ id, title, pictures, original_price, condition, shipping, base_price, initial_quantity, variations, sizes, coloursAvailable, filteredAtr }) => {
   const [open, setOpen] = useState<boolean>(false);
+  const [isInCart, setIsInCart] = useState(false)
   const { addProductCart, cart } = useCartStore()
   const isFreeShipping = shipping?.free_shipping
   const priceCart = original_price ? original_price : base_price
-
+  
   const addProduct = () => {
-    if (cart.find(cart => cart.name === title)) {
-        alert('Este producto ya esta en el carrito!')
+    if (cart.some(cart => cart.name == title)) {
+        setIsInCart(true)
+        setOpen(true)
+      return
     } else {
-      addProductCart({ id: id, name: title, image: pictures[0].url, price: priceCart})    
-      setOpen(true);
-      return setInterval(() => {
-            setOpen(false)
-      }, 2000);
+      addProductCart({ id: id, name: title, image: pictures[0].url, price: priceCart})
+      setOpen(true)    
     }
   }
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setOpen(false);
+    }, 2000);
+    return () => clearTimeout(timer)
+  }, [open]);
+  
   return (
     (
       <Grid2 container>
@@ -49,10 +56,10 @@ const DetailProductCard: React.FC<Prop> = ({ id, title, pictures, original_price
               <Divider />
               <Box mt={2}>
                 <Typography my={1} variant='h6' fontWeight={'bold'}>{title}</Typography>
-                <Box display={'flex'} my={1} gap={2}>
+                <Box display={'flex'} my={1} gap={2} alignItems={'center'}>
                   <Typography variant='h6'>${base_price.toLocaleString("de-DE")}</Typography>
-                  {isFreeShipping ? <Chip color='success' variant='outlined' label='Envio gratis' /> : <Chip color='error' variant='outlined' label='Envio con costo' />}
                   {original_price ?  <Typography variant="caption" sx={{ textDecoration: 'line-through' }}>${original_price?.toLocaleString("de-DE")}</Typography> : ""}   
+                  {isFreeShipping ? <Chip color='success' variant='outlined' label='Envio gratis' /> : <Chip color='error' variant='outlined' label='Envio con costo' />}
                 </Box>
               </Box>
               <Box>
@@ -73,7 +80,6 @@ const DetailProductCard: React.FC<Prop> = ({ id, title, pictures, original_price
           <Box mb={2}>
             <Typography fontWeight={'bold'}>Stock Disponible<Typography>Cantidad disponible: {initial_quantity}</Typography></Typography>              
           </Box>
-          
           <Box>
             {
               coloursAvailable != undefined && <ColoursAvailable colours={coloursAvailable ||[]}/>          
@@ -84,7 +90,8 @@ const DetailProductCard: React.FC<Prop> = ({ id, title, pictures, original_price
           </Box>
           <Box>
             <Button sx={{ mb: 4, backgroundImage: 'linear-gradient(-136.047deg,rgb(99, 127, 204),rgb(147, 199, 202))' }} onClick={() => addProduct()} variant='contained'>Agregar al carrito</Button>
-            <AlertSnackbar open={open} />
+            {isInCart ? <AlertSnackbar open={open} text="¡El producto ya está en el carrito!" severity="error" /> : <AlertSnackbar open={open} text="¡Se agregó el producto al carrito!" severity="success" />
+            }  
           </Box>
         </Grid2>
       </Grid2>

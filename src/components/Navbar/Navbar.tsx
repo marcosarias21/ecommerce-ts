@@ -1,7 +1,8 @@
-import { AppBar, Badge, Box, Button, Container, IconButton, Menu, Toolbar, Typography } from "@mui/material"
+import { AppBar, Badge, Box, Container, IconButton, Menu, Toolbar, Typography } from "@mui/material"
 import { iconsNav } from "../../helpers/icons";
 import { NavIcons } from "../NavIcons";
 import { Home } from "@mui/icons-material";
+import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import SearchIcon from '@mui/icons-material/Search';
 import { useState } from "react";
@@ -42,7 +43,7 @@ const Navbar = () => {
               MercadoTypescript
             </Typography>
           </Box>
-          <Button onClick={handleClick} variant="text" color="inherit" sx={{ display: { md: 'none' } }}>Categories</Button>
+          <IconButton onClick={handleClick} color="inherit" sx={{ display: { md: 'none' } }}><MenuIcon /></IconButton>
           <Box sx={{ display: { xs: 'none', sm: 'none', md: 'flex'} }} display={"flex"} gap={2} >
             {
               iconsNav.map((icon, i) =>  <NavIcons {...icon} key={i} /> )
@@ -69,14 +70,9 @@ const Navbar = () => {
           </Box>
           <Box>
           <div>
-            <Button
-              variant="text"
-              color="primary"                
-              onClick={handleClick}
-              sx={{ display: {xs: 'none', md: 'flex'} }}
-            >
-              Categorias
-            </Button>
+           <IconButton sx={{ display: { xs: 'none', md: 'flex' }, color: 'white' }} onClick={handleClick}>
+              <MenuIcon />
+           </IconButton>
             <Menu id="dropdown-menu" anchorEl={anchorEl} open={open} onClose={handleClose}>
               {
                 categories?.map(categorie => <MenuNav handleClose={handleClose} {...categorie} key={categorie.id}/>)

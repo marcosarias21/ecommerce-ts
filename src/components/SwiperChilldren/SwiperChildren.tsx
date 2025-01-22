@@ -5,14 +5,15 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 type Prop = {
-  children: React.ReactNode;
+  children: React.ReactNode
+  height: string
 };
 
-const SwiperChildren: React.FC<Prop> = ({ children }) => {
+const SwiperChildren: React.FC<Prop> = ({ children, height }) => {
   return (
     <Swiper 
       modules={[Navigation, Pagination, Scrollbar, A11y]}
-      style={{ height: '380px' }}
+      style={{ height: `${height}` }}
       spaceBetween={10}
       slidesPerView={5}
       breakpoints={{
