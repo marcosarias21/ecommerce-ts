@@ -18,7 +18,7 @@ const CategoryProducts = () => {
   const category = data?.filters[0].values[0].name
 
   const handleChange = (e: React.ChangeEvent<unknown>, value: number) => {
-    setPage(value)
+    if(e) setPage(value)
   }
 
   useEffect(() => {

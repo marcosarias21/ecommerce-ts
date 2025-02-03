@@ -5,8 +5,6 @@ import imgCar from '../../assets/images/banner_2.jpg'
 import imgCar2 from '../../assets/images/banner-web-cyber-12.jpg'
 import imgCar3 from '../../assets/images/banner-web-cyber-14.jpg'
 import imgHome from '../../assets/images/banner-info-home.png'
-import 'swiper/css'
-import 'swiper/css/navigation'
 import './carousel.css'
 
 const Carousel = () => {
